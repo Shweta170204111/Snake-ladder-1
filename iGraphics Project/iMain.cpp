@@ -1,20 +1,16 @@
 # include "iGraphics.h"
 #include <string.h>
 
-int global_indicator = 1;////it indicates on which phase the game currently is  
+int global_indicator = 1;//it indicates on which phase the game currently is  
 int blink = 0;
 int timecount = 0;
 /*
 this method implements first page.There is a background image and a loading bar.
-it stays for 5 second and then it will be vanished
+it stays for 5 seconds and then it will be vanished.timecount is variable which determines which loading image should be loaded
 */
 
 void firstpage()
 {
-	//
-	//timecount is variable which determines which loading image should be loaded
-	//
-
 	iShowImage(0, 0, 1400, 900, iLoadImage("pic\\fp.png"));
 	if (timecount<5)
 		iShowImage(80, 50, 1100, 100, iLoadImage("pic\\ld\\4.png"));
@@ -30,17 +26,18 @@ void firstpage()
 		iShowImage(80, 50, 1100, 100, iLoadImage("pic\\ld\\10.png"));
 	else
 		iShowImage(80, 50, 1100, 100, iLoadImage("pic\\ld\\11.png"));
-	iText(200, 100, "Loading", GLUT_BITMAP_HELVETICA_18);
+	iText(200, 115, "Loading", GLUT_BITMAP_HELVETICA_18);
 	
 }
 /*
-this method implements main menu page
+this method implements main menu page.
 which contains the buttons and a background image.
+blink variable indicates which button should be blinked.
+pos variable is a constant which works on blinking and changes cordinates for blinking 
 */
 void secondpage()
 {
-	//blink variable indicates which button should be blinked
-	//pos variable is a constant which works on blinking and changes cordinates for blinking 
+	
 
 	int pos = 30;
 
@@ -58,7 +55,7 @@ void secondpage()
 		400 + 2 * pos * (blink == 5), 200 + 2 * pos * (blink == 5), iLoadImage("pic\\bt5.png"));//Quit button
 }
 /*
-this method will increment the value of timecount variable so that it can determine which loading picture should be loaded
+this method will increment the value of timecount variable after 0.1 second sequently so that it can determine which loading picture should be loaded.
 */
 void showTime()
 {
@@ -95,13 +92,13 @@ void iMouse(int button, int state, int mx, int my)
 
 	if (button == GLUT_LEFT_BUTTON && state == GLUT_DOWN)
 	{
-		
+		global_indicator=1;
 
-		if (global_indicator == 1 && mx > 850 && mx < 1250 && my<825 && my > 775)global_indicator = 2;
-		else if (global_indicator == 1 && mx > 850 && mx < 1250 && my>690 && my < 740)global_indicator = 121;
-		else if (global_indicator == 1 && mx > 850 && mx < 1250 && my>590 && my < 640)global_indicator = 122;
-		else if (global_indicator == 1 && mx > 850 && mx < 1250 && my>490 && my < 540)global_indicator = 123;
-		else if (global_indicator == 1 && mx > 850 && mx < 1250 && my>390 && my < 440)global_indicator = 124;
+		if (global_indicator == 1 && mx > 850 && mx < 1250 && my<900 && my > 700)global_indicator = 2;
+		else if (global_indicator == 1 && mx > 850 && mx < 1250 && my>580 && my < 780)global_indicator = 121;
+		else if (global_indicator == 1 && mx > 850 && mx < 1250 && my>460 && my < 660)global_indicator = 122;
+		else if (global_indicator == 1 && mx > 850 && mx < 1250 && my>340 && my < 540)global_indicator = 123;
+		else if (global_indicator == 1 && mx > 850 && mx < 1250 && my>220 && my < 420)exit(0);
 
 		
 		if (button == GLUT_RIGHT_BUTTON && state == GLUT_DOWN)
@@ -118,24 +115,14 @@ void iKeyboard(unsigned char key)
 }
 void iSpecialKeyboard(unsigned char key)
 {
-
-	if (key == GLUT_KEY_END)
-	{
-		exit(0);
-	}
-
 	//place your codes for other keys here
 }
 int main()
 {
 	
 	iInitialize(1400, 900, "Snake Ladder");
-
-	
 	iSetTimer(100, showTime);
-
 	iStart(); 
 
 	return 0;
 }
-
